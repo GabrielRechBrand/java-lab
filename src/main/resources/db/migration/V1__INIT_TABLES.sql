@@ -1,4 +1,4 @@
-CREATE TABLE cargo
+CREATE TABLE IF NOT EXISTS cargo
 (
     id                      UUID NOT NULL,
     created_at              TIMESTAMP WITHOUT TIME ZONE,
@@ -22,14 +22,14 @@ CREATE TABLE cargo
     CONSTRAINT pk_cargo PRIMARY KEY (id)
 );
 
-CREATE TABLE cargo_product
+CREATE TABLE IF NOT EXISTS cargo_product
 (
     cargo_id   UUID NOT NULL,
     product_id UUID NOT NULL,
     CONSTRAINT pk_cargo_product PRIMARY KEY (cargo_id, product_id)
 );
 
-CREATE TABLE "order"
+CREATE TABLE IF NOT EXISTS "order"
 (
     id          UUID NOT NULL,
     created_at  TIMESTAMP WITHOUT TIME ZONE,
@@ -38,14 +38,14 @@ CREATE TABLE "order"
     CONSTRAINT pk_order PRIMARY KEY (id)
 );
 
-CREATE TABLE order_product
+CREATE TABLE IF NOT EXISTS order_product
 (
     order_id   UUID NOT NULL,
     product_id UUID NOT NULL,
     CONSTRAINT pk_order_product PRIMARY KEY (order_id, product_id)
 );
 
-CREATE TABLE product
+CREATE TABLE IF NOT EXISTS product
 (
     id          UUID NOT NULL,
     created_at  TIMESTAMP WITHOUT TIME ZONE,
@@ -61,7 +61,7 @@ CREATE TABLE product
     CONSTRAINT pk_product PRIMARY KEY (id)
 );
 
-CREATE TABLE review
+CREATE TABLE IF NOT EXISTS review
 (
     id          UUID         NOT NULL,
     created_at  TIMESTAMP WITHOUT TIME ZONE,
@@ -75,7 +75,7 @@ CREATE TABLE review
     CONSTRAINT pk_review PRIMARY KEY (id)
 );
 
-CREATE TABLE subject
+CREATE TABLE IF NOT EXISTS subject
 (
     id         UUID NOT NULL,
     created_at TIMESTAMP WITHOUT TIME ZONE,
@@ -88,7 +88,7 @@ CREATE TABLE subject
     CONSTRAINT pk_subject PRIMARY KEY (id)
 );
 
-CREATE TABLE truck
+CREATE TABLE IF NOT EXISTS truck
 (
     id                  UUID NOT NULL,
     created_at          TIMESTAMP WITHOUT TIME ZONE,
@@ -103,13 +103,42 @@ CREATE TABLE truck
     CONSTRAINT pk_truck PRIMARY KEY (id)
 );
 
-ALTER TABLE cargo ADD CONSTRAINT fk_cargo_on_truck FOREIGN KEY (truck_id) REFERENCES truck (id);
-ALTER TABLE "order" ADD CONSTRAINT fk_order_on_customer FOREIGN KEY (customer_id) REFERENCES subject (id);
-ALTER TABLE product ADD CONSTRAINT fk_product_on_company FOREIGN KEY (company_id) REFERENCES subject (id);
-ALTER TABLE review ADD CONSTRAINT fk_review_on_order FOREIGN KEY (order_id) REFERENCES "order" (id);
-ALTER TABLE review ADD CONSTRAINT fk_review_on_product FOREIGN KEY (product_id) REFERENCES product (id);
-ALTER TABLE review ADD CONSTRAINT fk_review_on_subject FOREIGN KEY (subject_id) REFERENCES subject (id);
-ALTER TABLE cargo_product ADD CONSTRAINT fk_carpro_on_cargo FOREIGN KEY (cargo_id) REFERENCES cargo (id);
-ALTER TABLE cargo_product ADD CONSTRAINT fk_carpro_on_product FOREIGN KEY (product_id) REFERENCES product (id);
-ALTER TABLE order_product ADD CONSTRAINT fk_ordpro_on_order FOREIGN KEY (order_id) REFERENCES "order" (id);
-ALTER TABLE order_product ADD CONSTRAINT fk_ordpro_on_product FOREIGN KEY (product_id) REFERENCES product (id);
+ALTER TABLE cargo
+    DROP CONSTRAINT IF EXISTS fk_cargo_on_truck,
+    ADD CONSTRAINT fk_cargo_on_truck FOREIGN KEY (truck_id) REFERENCES truck (id);
+
+ALTER TABLE "order"
+    DROP CONSTRAINT IF EXISTS fk_order_on_customer,
+    ADD CONSTRAINT fk_order_on_customer FOREIGN KEY (customer_id) REFERENCES subject (id);
+
+ALTER TABLE product
+    DROP CONSTRAINT IF EXISTS fk_product_on_company,
+    ADD CONSTRAINT fk_product_on_company FOREIGN KEY (company_id) REFERENCES subject (id);
+
+ALTER TABLE review
+    DROP CONSTRAINT IF EXISTS fk_review_on_order,
+    ADD CONSTRAINT fk_review_on_order FOREIGN KEY (order_id) REFERENCES "order" (id);
+
+ALTER TABLE review
+    DROP CONSTRAINT IF EXISTS fk_review_on_product,
+    ADD CONSTRAINT fk_review_on_product FOREIGN KEY (product_id) REFERENCES product (id);
+
+ALTER TABLE review
+    DROP CONSTRAINT IF EXISTS fk_review_on_subject,
+    ADD CONSTRAINT fk_review_on_subject FOREIGN KEY (subject_id) REFERENCES subject (id);
+
+ALTER TABLE cargo_product
+    DROP CONSTRAINT IF EXISTS fk_carpro_on_cargo,
+    ADD CONSTRAINT fk_carpro_on_cargo FOREIGN KEY (cargo_id) REFERENCES cargo (id);
+
+ALTER TABLE cargo_product
+    DROP CONSTRAINT IF EXISTS fk_carpro_on_product,
+    ADD CONSTRAINT fk_carpro_on_product FOREIGN KEY (product_id) REFERENCES product (id);
+
+ALTER TABLE order_product
+    DROP CONSTRAINT IF EXISTS fk_ordpro_on_order,
+    ADD CONSTRAINT fk_ordpro_on_order FOREIGN KEY (order_id) REFERENCES "order" (id);
+
+ALTER TABLE order_product
+    DROP CONSTRAINT IF EXISTS fk_ordpro_on_product,
+    ADD CONSTRAINT fk_ordpro_on_product FOREIGN KEY (product_id) REFERENCES product (id);
