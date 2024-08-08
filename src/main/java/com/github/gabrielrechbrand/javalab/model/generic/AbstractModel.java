@@ -1,4 +1,4 @@
-package com.github.gabrielrechbrand.javalab.model;
+package com.github.gabrielrechbrand.javalab.model.generic;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;

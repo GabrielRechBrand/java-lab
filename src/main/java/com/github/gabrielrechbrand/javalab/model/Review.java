@@ -1,5 +1,6 @@
 package com.github.gabrielrechbrand.javalab.model;
 
+import com.github.gabrielrechbrand.javalab.model.generic.AbstractModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -27,16 +28,12 @@ public class Review extends AbstractModel {
 
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "subject_id", nullable = false)
+    private Subject subject;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "company_id")
-    private Company company;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
