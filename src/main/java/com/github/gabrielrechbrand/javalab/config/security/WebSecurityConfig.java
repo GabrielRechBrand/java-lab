@@ -27,8 +27,8 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                  .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                  .authorizeHttpRequests(registry -> registry
-                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                         .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
+                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                          .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 

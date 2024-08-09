@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS cargo
     arrival_date            TIMESTAMP WITHOUT TIME ZONE,
     origin                  VARCHAR(255),
     destination             VARCHAR(255),
-    status                  SMALLINT,
+    status                  VARCHAR(255) NOT NULL,
     total_weight            DECIMAL,
     volume                  DECIMAL,
     temperature             DECIMAL,
@@ -54,8 +54,8 @@ CREATE TABLE IF NOT EXISTS product
     description VARCHAR(255),
     price       DECIMAL,
     stock       INTEGER NOT NULL,
-    status      SMALLINT,
-    category    SMALLINT,
+    status      VARCHAR(255) NOT NULL,
+    category    VARCHAR(255) NOT NULL,
     weight      DECIMAL,
     company_id  UUID,
     CONSTRAINT pk_product PRIMARY KEY (id)
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS subject
     email      VARCHAR(255),
     phone      VARCHAR(255),
     address    VARCHAR(255),
-    type       SMALLINT,
+    type       VARCHAR(255) NOT NULL,
     CONSTRAINT pk_subject PRIMARY KEY (id)
 );
 
