@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 public class Truck extends AbstractModel {
 
     private Boolean active;
-    private String truckNumber;
     private String model;
     private String manufacturer;
     private Integer yearOfManufacture;

@@ -94,7 +94,6 @@ CREATE TABLE IF NOT EXISTS truck
     created_at          TIMESTAMP WITHOUT TIME ZONE,
     updated_at          TIMESTAMP WITHOUT TIME ZONE,
     active              BOOLEAN,
-    truck_number        VARCHAR(255),
     model               VARCHAR(255),
     manufacturer        VARCHAR(255),
     year_of_manufacture INTEGER,

@@ -11,7 +11,6 @@ public class TruckMapper implements GenericMapper<TruckDTO, Truck> {
     @Override
     public TruckDTO toDTO(Truck entity) {
         return new TruckDTO(
-                entity.getTruckNumber(),
                 entity.getModel(),
                 entity.getManufacturer(),
                 entity.getYearOfManufacture(),
@@ -23,7 +22,6 @@ public class TruckMapper implements GenericMapper<TruckDTO, Truck> {
     @Override
     public Truck toEntity(TruckDTO dto) {
         Truck truck = new Truck();
-        truck.setTruckNumber(dto.truckNumber());
         truck.setModel(dto.model());
         truck.setManufacturer(dto.manufacturer());
         truck.setYearOfManufacture(dto.yearOfManufacture());

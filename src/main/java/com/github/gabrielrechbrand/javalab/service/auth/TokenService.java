@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 @Service
@@ -36,7 +37,9 @@ public class TokenService {
     }
 
     private Instant getExpirationDate() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.UTC);
+        ZoneId saoPauloZoneId = ZoneId.of("America/Sao_Paulo");
+        LocalDateTime expirationDateTime = LocalDateTime.now(saoPauloZoneId).plusHours(2);
+        return expirationDateTime.toInstant(ZoneOffset.UTC);
     }
 
 }
